@@ -202,7 +202,9 @@ namespace Opc.Ua.Sample
 
         private void InitializeComponent()
         {
+#pragma warning disable CS0436 // The type 'ServerDiagnosticsCTRL' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\ServerDiagnosticsCTRL.cs' conflicts with the imported type 'ServerDiagnosticsCTRL' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\ServerDiagnosticsCTRL.cs'.
             this.serverDiagnosticsCTRL1 = new Opc.Ua.Sample.ServerDiagnosticsCTRL();
+#pragma warning restore CS0436 // The type 'ServerDiagnosticsCTRL' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\ServerDiagnosticsCTRL.cs' conflicts with the imported type 'ServerDiagnosticsCTRL' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\ServerDiagnosticsCTRL.cs'.
             this.SuspendLayout();
             // 
             // serverDiagnosticsCTRL1

@@ -39,7 +39,9 @@ namespace Opc.Ua.Sample
                 // check if running as a service.
                 if (!Environment.UserInteractive)
                 {
+#pragma warning disable CS0436 // The type 'SampleServer' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\SampleServer.cs' conflicts with the imported type 'SampleServer' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\SampleServer.cs'.
                     application.StartAsService(new Opc.Ua.Sample.SampleServer());
+#pragma warning restore CS0436 // The type 'SampleServer' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\SampleServer.cs' conflicts with the imported type 'SampleServer' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\SampleServer.cs'.
                     return;
                 }
 
@@ -54,10 +56,14 @@ namespace Opc.Ua.Sample
                 application.CheckApplicationInstanceCertificate(false, 0);
 
                 // start the server.
+#pragma warning disable CS0436 // The type 'SampleServer' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\SampleServer.cs' conflicts with the imported type 'SampleServer' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\SampleServer.cs'.
                 application.Start(new Opc.Ua.Sample.SampleServer());
+#pragma warning restore CS0436 // The type 'SampleServer' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\SampleServer.cs' conflicts with the imported type 'SampleServer' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\SampleServer.cs'.
 
                 // run the application interactively.
+#pragma warning disable CS0436 // The type 'ServerForms' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\ServerForm.cs' conflicts with the imported type 'ServerForms' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\ServerForm.cs'.
                 Application.Run(new ServerForms(application));
+#pragma warning restore CS0436 // The type 'ServerForms' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\ServerForm.cs' conflicts with the imported type 'ServerForms' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\ServerForm.cs'.
             }
             catch (Exception e)
             {

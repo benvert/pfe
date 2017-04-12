@@ -133,6 +133,7 @@
     <Compile Include="ExceptionDlg.Designer.cs">
       <DependentUpon>ExceptionDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HostEnumerator.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="LocalSecurityPolicy.cs" />

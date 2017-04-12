@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
@@ -13,9 +16,12 @@ using System.Diagnostics;
 using static SQL.Vars;
 namespace SQL
 {
-    public partial class RelayManagment : UserControl
-    {        
+    public partial class RelayForm : Form
+    {
+        //Variable serveur/client OPC
         public bool[] ValeurOPC { get; set; }
+        bool firspass = true;
+        //Déclarations de variables
         IedConnection ConnectToIED;
         List<ControlObject> control = new List<ControlObject>();
         IsoConnectionParameters param;
@@ -34,19 +40,21 @@ namespace SQL
         }
         SQLiteConnection database_connection = null;
         SQLiteCommand cmd = null;
-        CancellationTokenSource DbCancelation, ReadCancelation, IEDCancelation, OPCCancelation;
+        CancellationTokenSource DbCancelation, ReadCancelation, IEDCancelation;
         Task FillTask, ReadTask;
-        bool firstThick, firstUse, OPCconnected, IEDConnected, Dbisopen;
-        public RelayManagment()
+        bool firstThick, firstUse, IEDConnected, Dbisopen;
+        public RelayForm()
         {
             InitializeComponent();
+
         }
-        private void RelayManagment_Load(object sender, EventArgs e)
+
+        private void Form1_Load(object sender, EventArgs e)
         {
+
             // DbReport = MesVariables.DbReport;  //
             Dbisopen = false;
             IEDConnected = false;
-            OPCconnected = false;
             firstUse = true;
             Valeur = Class.SPCS;
             database_connection = new SQLiteConnection("Data Source=:memory:;Version=3;;cache=shared");
@@ -54,14 +62,24 @@ namespace SQL
             param = ConnectToIED.GetConnectionParameters();
             initialiser();
             password = "password";
-            hostname = "192.168.1.65";
+            hostname = "192.168.1.10";
+            IpBox.Text = hostname;
+            PassBox.Text = password;
+            PortBox.Text = "102";
+
         }
+
         #region button
         //Exit
         private void Exit_Click(object sender, EventArgs e)
         {
-            Form.ActiveForm.Close();
+            IEDCancelation.Cancel();
+            DbCancelation.Cancel();
+            ReadCancelation.Cancel();
             IEDConnected = false;
+            Closedb();
+            Form.ActiveForm.Close();
+
 
         }
         //Connecter
@@ -73,8 +91,10 @@ namespace SQL
                 port = Convert.ToInt32(PortBox.Text);
             if (!String.IsNullOrEmpty(PassBox.Text))
                 password = Convert.ToString(PassBox.ToString());
-            if (checkBox1.Checked)
-                param.UsePasswordAuthentication(password);
+            if (checkBox1.Checked && firspass)
+            { param.UsePasswordAuthentication(password); firspass = false; }
+
+
             bool retry = true;
             while (retry)
             {
@@ -94,14 +114,10 @@ namespace SQL
                     toolStatus.Text = "Connected";
                     IEDConnected = true;
                     int i = 1;
-                    for (i = 1; i < 33; i++)
+                    for (i = 1; i < 65; i++)
                     {
                         refer.Add("GEDeviceF650/vinGGIO1.SPCSO" + i.ToString() + "");
-                    }
-
-                    for (i = 0; i < 32; i++)
-                    {
-                        control.Add(ConnectToIED.CreateControlObject(refer[i]));
+                        control.Add(ConnectToIED.CreateControlObject(refer[i - 1]));
                     }
                 }
                 catch (IedConnectionException ex)
@@ -243,32 +259,41 @@ namespace SQL
             {
                 try
                 {
-                    ligne line = new ligne();
                     if (!Dbisopen)
                         Opendb();
                     string sql = "select * from vinTable";
                     cmd = new SQLiteCommand(sql, database_connection);
-
+                    int i = 0;
                     using (SQLiteDataReader read = cmd.ExecuteReader())
                     {
                         while (read.Read())
                         {
-                            line._val = ToBool(read.GetInt32(1));
-                            line._name = read.GetString(0);
-                            ConnectToIED.WriteValue("GEDeviceF650/vinGGIO1." + line._name + "", FunctionalConstraint.CF, new MmsValue(line._val));
+
+                            if (i < 64)
+                            {
+                                control[i].Operate(ToBool(read.GetInt32(1)));
+                                i++;
+                            }
+                            else
+                                i = 0;
+                            //ConnectToIED.WriteValue("GEDeviceF650/vinGGIO1." + line._name + "", FunctionalConstraint.CF, new MmsValue(line._val));
                         }
+                        toolStatus.Text = "done writing";
                     }
                     //Closedb();
                 }
                 catch (Exception er)
                 {
+
                     toolStatus.Text = er.Message;
-                    IEDCancelation.Cancel();
+
                 }
             }
+
             else
                 toolStatus.Text = "IED Disconnected";
         }
+
         //Fonction de conversion
         private bool ToBool(int x)
         {
@@ -523,6 +548,12 @@ namespace SQL
                 }
             }
         }
+
+        private void NamesCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show(DbReport.Keys.ElementAtOrDefault(NamesCombo.SelectedIndex));
+        }
+
         //changement de valeur
         private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -530,7 +561,7 @@ namespace SQL
             bool valeur = (bool)dataGridView.Rows[e.RowIndex].Cells[1].Value;
             Update_record(path, valeur);
             db_status.Text = "updated succefully";
-
+            control[e.RowIndex].Operate((bool)dataGridView.Rows[e.RowIndex].Cells[1].Value);
 
         }
         //suppression du record
@@ -732,10 +763,9 @@ namespace SQL
             }
             if (firstThick || ReadTask.IsCompleted)
             {
-                if (!OPCconnected)
-                    return;
+
                 IEDCancelation = new CancellationTokenSource();
-                OPCCancelation = new CancellationTokenSource();
+               
                 ReadCancelation = new CancellationTokenSource();
                 if (IEDConnected)
                     ReadTask = Task.Factory.StartNew(() => DbReading(ReadCancelation.Token), ReadCancelation.Token)
@@ -751,6 +781,167 @@ namespace SQL
 
         #endregion
 
+        //#region ClientOPC
+
+        ////Initialiser le client
+        //private void OPCinit()
+        //{
+        //    string appPath = Path.GetDirectoryName(Application.ExecutablePath);
+        //    SecurityConfiguration securityConfiguration = client.Configuration.SecurityConfiguration;
+
+        //    securityConfiguration.ApplicationCertificate.StorePath
+        //            = "App Certificates";
+        //    securityConfiguration.RejectedCertificateStore.StorePath
+        //            = "Rejected Certificates";
+        //    securityConfiguration.TrustedIssuerCertificates.StorePath
+        //            = "Trusted Issuer Certificates";
+        //    securityConfiguration.TrustedPeerCertificates.StorePath
+        //            = "Trusted Peer Certificates";
+        //    // securityConfiguration.TrustedIssuerCertificates.TrustedCertificates.
+        //    client.UseDomainChecks = true;
+        //    client.UseSecureEndpoint = true;
+        //    securityConfiguration.AutoAcceptUntrustedCertificates = true;
+        //}
+        ////Déconnecting
+        //private void Client_Disconnecting(object sender, EventArgs e)
+        //{
+        //    OPCconnected = false;
+        //    OPCCancelation.Cancel();
+        //}
+        ////Stop Client
+        //private void stopToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    client.Disconnect();
+        //}
+
+        ////OPCReading
+        //private void OPCRead(CancellationToken token)
+        //{
+        //    if (token.IsCancellationRequested)
+        //    { toolStatus.Text = "Cancellation thrown"; return; }
+        //    if (!OPCconnected)
+        //        return;
+
+        //    for (int i = 1; i < 65; i++)
+        //    {
+        //        OpcValue values = client.ReadNode("opc.node://identifier:2/#Relais/SPCSO" + i.ToString());
+        //        Update_record("SPCSO" + i.ToString(), (bool)values.Value);
+        //    }
+        //}
+        ////startclient
+        //private void startToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        client = new OpcClient("opc.tcp://localhost:48030");
+        //        OPCinit();
+        //        client.Disconnected += Client_Disconnected;
+        //        client.Disconnecting += Client_Disconnecting;
+        //        client.Connected += Client_Connected;
+        //        client.Connect();
+
+        //        OpcNodeInfo node = client.BrowseNode(OpcObjectTypes.ObjectsFolder);
+        //        OpcValue value = client.ReadNode("opc.node://identifier:2/#Relais/SPCSO10");
+        //        MessageBox.Show(value.Value.ToString());
+
+
+        //    }
+        //    catch (Exception er)
+        //    {
+        //        OPCconnected = false;
+        //        db_status.Text = er.Message;
+        //    }
+        //}
+        ////évenement de connection et déconnection
+        //private void Client_Disconnected(object sender, EventArgs e)
+        //{
+        //    OPCconnected = false;
+        //    startToolStripMenuItem.Enabled = true;
+        //    stopToolStripMenuItem.Enabled = false;
+        //}
+
+        //private void Client_Connected(object sender, EventArgs e)
+        //{
+        //    OPCconnected = true;
+        //    startToolStripMenuItem.Enabled = false;
+        //    stopToolStripMenuItem.Enabled = true;
+        //}
+
+
+        //#endregion
+
+        //#region Serveur OPC
+
+        //#region Events
+
+        //private void Server_SessionClosing(object sender, OpcSessionEventArgs e)
+        //{
+        //    OPCINFO.Text = "Session Closing";
+
+
+        //}
+
+        //private void Server_Started(object sender, EventArgs e)
+        //{
+        //    OPCINFO.Text = "Server started";
+        //    connectToolStripMenuItem.Enabled = false;
+        //    disconnectToolStripMenuItem.Enabled = true;
+        //}
+
+        //private void Server_Stopping(object sender, EventArgs e)
+        //{
+        //    OPCCancelation.Cancel();
+        //    OPCconnected = false;
+        //}
+
+        //private void Server_Stopped(object sender, EventArgs e)
+        //{
+        //    connectToolStripMenuItem.Enabled = true;
+        //    disconnectToolStripMenuItem.Enabled = false;
+        //    OPCconnected = false;
+
+        //}
+
+        //private void Server_SessionActivating(object sender, EventArgs e)
+        //{
+        //    OPCINFO.Text = "Session Activated";
+        //}
+        //#endregion
+        ////connecter le serveur
+        //private void connectToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+
+        //    using (Serveur)
+        //    {
+        //        Manager.AfterWrite += Manager_AfterWrite;
+        //        Serveur = new OpcServerApplication("opc.tcp://localhost:48030/", Manager);
+        //        Serveur.Server.SessionActivating += Server_SessionActivating;
+        //        Serveur.Server.Started += Server_Started;
+        //        Serveur.Server.SessionClosing += Server_SessionClosing;
+        //        Serveur.Server.Stopped += Server_Stopped;
+        //        Serveur.Server.Stopping += Server_Stopping;
+        //        Serveur.Server.Start();
+        //        Serveur.Server.Name = "Adams OPC server";
+
+
+        //    }
+
+
+        //}
+
+        //private void Manager_AfterWrite(object sender, OpcNodeAccessEventArgs e)
+        //{
+        //    MessageBox.Show( e.Context.Identity.DisplayName);
+        //}
+
+        ////déconnecter le serveur
+        //private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Serveur.Server.Dispose();
+        //    Serveur.Exit();
+        //}
+
+        //#endregion
 
     }
 }

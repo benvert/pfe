@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample Server", "SampleApplications\Samples\Server\Sample Server.csproj", "{B109EBAE-BB08-40A7-BB9E-7E56B9151B17}"
-	ProjectSection(ProjectDependencies) = postProject
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE} = {5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{A579C6F2-2C5F-4176-BEAE-0D1BD0750375}"
 EndProject
@@ -21,8 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UA Core Library", "Stack\Core\UA Core Library.csproj", "{7543AFCB-F5AF-44AF-83C9-23164474C1E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQL", "SQL\SQL.csproj", "{41449CA7-BEBC-4BEE-B10A-751093A80BB6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UA Sample Library", "SampleApplications\Samples\Common\UA Sample Library.csproj", "{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,18 +89,6 @@ Global
 		{41449CA7-BEBC-4BEE-B10A-751093A80BB6}.Release|x64.Build.0 = Release|Any CPU
 		{41449CA7-BEBC-4BEE-B10A-751093A80BB6}.Release|x86.ActiveCfg = Release|Any CPU
 		{41449CA7-BEBC-4BEE-B10A-751093A80BB6}.Release|x86.Build.0 = Release|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Debug|x64.Build.0 = Debug|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Debug|x86.Build.0 = Debug|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Release|x64.ActiveCfg = Release|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Release|x64.Build.0 = Release|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Release|x86.ActiveCfg = Release|Any CPU
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +99,5 @@ Global
 		{E16F908B-C338-4B0C-9E72-2ADAD8FB98D5} = {04A2AED8-1959-43CD-BCC1-B25F43D9C91D}
 		{7543AFCB-F5AF-44AF-83C9-23164474C1E9} = {F8ADA46B-F2EA-42D3-8860-06D9333E57E0}
 		{41449CA7-BEBC-4BEE-B10A-751093A80BB6} = {A579C6F2-2C5F-4176-BEAE-0D1BD0750375}
-		{5A647CC0-5FD8-476B-8C14-8A9CED9CF5BE} = {A579C6F2-2C5F-4176-BEAE-0D1BD0750375}
 	EndGlobalSection
 EndGlobal

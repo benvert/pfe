@@ -23,12 +23,16 @@ namespace Opc.Ua.Sample
             SystemContext.NodeIdFactory = this;
 
             // get the configuration for the node manager.
+#pragma warning disable CS0436 // The type 'ReferenceServerConfiguration' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs' conflicts with the imported type 'ReferenceServerConfiguration' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs'.
             m_configuration = configuration.ParseExtension<ReferenceServerConfiguration>();
+#pragma warning restore CS0436 // The type 'ReferenceServerConfiguration' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs' conflicts with the imported type 'ReferenceServerConfiguration' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs'.
 
             // use suitable defaults if no configuration exists.
             if (m_configuration == null)
             {
+#pragma warning disable CS0436 // The type 'ReferenceServerConfiguration' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs' conflicts with the imported type 'ReferenceServerConfiguration' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs'.
                 m_configuration = new ReferenceServerConfiguration();
+#pragma warning restore CS0436 // The type 'ReferenceServerConfiguration' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs' conflicts with the imported type 'ReferenceServerConfiguration' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs'.
             }
 
             m_dynamicNodes = new List<BaseDataVariableState>();
@@ -330,7 +334,9 @@ namespace Opc.Ua.Sample
         #endregion
 
         #region Private Fields
+#pragma warning disable CS0436 // The type 'ReferenceServerConfiguration' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs' conflicts with the imported type 'ReferenceServerConfiguration' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs'.
         private ReferenceServerConfiguration m_configuration;
+#pragma warning restore CS0436 // The type 'ReferenceServerConfiguration' in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs' conflicts with the imported type 'ReferenceServerConfiguration' in 'Opc.Ua.SampleServer, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null'. Using the type defined in 'C:\Users\adam\Desktop\projects\Working OPCServer\SampleApplications\Samples\Server\RelayNodes.cs'.
         private Opc.Ua.Test.DataGenerator m_generator;
         private List<BaseDataVariableState> m_dynamicNodes;
         #endregion

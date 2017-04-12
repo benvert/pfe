@@ -138,6 +138,7 @@
     <Compile Include="Diagnostics\v10\DataChangeMonitoredItem.cs" />
     <Compile Include="Diagnostics\v10\MonitoredNode.cs" />
     <Compile Include="Documentation\Opc.Ua.Server.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NodeManager\ICallable.cs">
       <SubType>Code</SubType>
     </Compile>
