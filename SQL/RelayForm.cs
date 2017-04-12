@@ -73,7 +73,6 @@ namespace SQL
         //Exit
         private void Exit_Click(object sender, EventArgs e)
         {
-            IEDCancelation.Cancel();
             DbCancelation.Cancel();
             ReadCancelation.Cancel();
             IEDConnected = false;
@@ -508,7 +507,7 @@ namespace SQL
         {
             dataGridView.AllowUserToAddRows = false;
             dataGridView.ColumnCount = 1;
-            dataGridView.Columns[0].Name = "Variable";
+            dataGridView.Columns[0].Name = "Virtual Input";
             DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
             dataGridView.Columns.Add(chk);
             chk.Name = "Valeur";
@@ -517,7 +516,15 @@ namespace SQL
             dataGridView.MultiSelect = false;
             dataGridView.Columns[0].ReadOnly = true;
 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.ColumnCount = 2;
+            dataGridView1.Columns[0].Name = "ReportVariable";
 
+            dataGridView1.Columns[1].Name = "Value";
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            dataGridView1.Columns[0].ReadOnly = true;
         }
         private void fillGrid(CancellationToken token)
         {
@@ -595,14 +602,14 @@ namespace SQL
             if (firstUse)
             {
                 string Args = hostname + " " + port;
-                string pathToFile = Directory.GetCurrentDirectory() + "/Report_get.exe";
-                // MessageBox.Show(pathToFile);
+                string pathToFile = Directory.GetCurrentDirectory() + @"\Report_get.exe";
+                MessageBox.Show(pathToFile);
                 Process Prog = new Process();
                 try
                 {
                     Prog.StartInfo.FileName = pathToFile;
                     Prog.StartInfo.Arguments = Args;
-                    Prog.StartInfo.CreateNoWindow = true;
+                    Prog.StartInfo.CreateNoWindow = false;
                     Prog.Start();
                     Prog.WaitForExit();
                     firstUse = false;
@@ -615,9 +622,9 @@ namespace SQL
 
             }
             DbReport.Clear();
-            string[] x = File.ReadAllLines(Directory.GetCurrentDirectory() + "/device.txt");
-            string[] dbnames = File.ReadAllLines(Directory.GetCurrentDirectory() + "/db_names.txt");
-            string[] reportname = File.ReadAllLines(Directory.GetCurrentDirectory() + "/reports.txt");
+            string[] x = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\device.txt");
+            string[] dbnames = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\db_names.txt");
+            string[] reportname = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\reports.txt");
             foreach (string item in x)
             {
                 Device_name = item;

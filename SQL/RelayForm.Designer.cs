@@ -74,6 +74,9 @@
             this.oPCClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label3 = new System.Windows.Forms.Label();
+            this.selectedreport = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -84,6 +87,7 @@
             this.groupBox4.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -232,7 +236,7 @@
             this.Initialise_button.BackColor = System.Drawing.Color.DarkTurquoise;
             this.Initialise_button.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Initialise_button.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Initialise_button.Location = new System.Drawing.Point(6, 167);
+            this.Initialise_button.Location = new System.Drawing.Point(10, 309);
             this.Initialise_button.Name = "Initialise_button";
             this.Initialise_button.Size = new System.Drawing.Size(75, 23);
             this.Initialise_button.TabIndex = 12;
@@ -253,10 +257,10 @@
             this.db_status,
             this.toolStripStatusLabel2,
             this.OPCINFO});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 314);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 430);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(737, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(712, 22);
             this.statusStrip1.Stretch = false;
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
@@ -321,7 +325,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.DarkTurquoise;
             this.groupBox2.Location = new System.Drawing.Point(15, 9);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(407, 214);
+            this.groupBox2.Size = new System.Drawing.Size(407, 342);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Manipulated_Data";
@@ -331,7 +335,7 @@
             this.FillButton.BackColor = System.Drawing.Color.DarkTurquoise;
             this.FillButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.FillButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.FillButton.Location = new System.Drawing.Point(87, 167);
+            this.FillButton.Location = new System.Drawing.Point(102, 309);
             this.FillButton.Name = "FillButton";
             this.FillButton.Size = new System.Drawing.Size(75, 23);
             this.FillButton.TabIndex = 17;
@@ -343,7 +347,7 @@
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.checkBox2.Location = new System.Drawing.Point(312, 173);
+            this.checkBox2.Location = new System.Drawing.Point(302, 312);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(73, 17);
             this.checkBox2.TabIndex = 16;
@@ -356,7 +360,7 @@
             this.ClearBtn.BackColor = System.Drawing.Color.DarkTurquoise;
             this.ClearBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ClearBtn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClearBtn.Location = new System.Drawing.Point(185, 167);
+            this.ClearBtn.Location = new System.Drawing.Point(194, 309);
             this.ClearBtn.Name = "ClearBtn";
             this.ClearBtn.Size = new System.Drawing.Size(75, 23);
             this.ClearBtn.TabIndex = 14;
@@ -369,7 +373,7 @@
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(6, 17);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(395, 144);
+            this.dataGridView.Size = new System.Drawing.Size(395, 283);
             this.dataGridView.TabIndex = 9;
             this.dataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
@@ -384,11 +388,11 @@
             this.tabControl1.Controls.Add(this.vinTab);
             this.tabControl1.Controls.Add(this.repportTab);
             this.tabControl1.HotTrack = true;
-            this.tabControl1.Location = new System.Drawing.Point(276, 34);
+            this.tabControl1.Location = new System.Drawing.Point(248, 32);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(449, 268);
+            this.tabControl1.Size = new System.Drawing.Size(449, 386);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 14;
             // 
@@ -400,18 +404,20 @@
             this.vinTab.Location = new System.Drawing.Point(4, 4);
             this.vinTab.Name = "vinTab";
             this.vinTab.Padding = new System.Windows.Forms.Padding(3);
-            this.vinTab.Size = new System.Drawing.Size(441, 242);
+            this.vinTab.Size = new System.Drawing.Size(441, 360);
             this.vinTab.TabIndex = 0;
             this.vinTab.Text = "Virtual Inputs";
             // 
             // repportTab
             // 
             this.repportTab.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.repportTab.Controls.Add(this.groupBox4);
+            this.repportTab.Controls.Add(this.dataGridView1);
+            this.repportTab.Controls.Add(this.selectedreport);
+            this.repportTab.Controls.Add(this.label3);
             this.repportTab.Location = new System.Drawing.Point(4, 4);
             this.repportTab.Name = "repportTab";
             this.repportTab.Padding = new System.Windows.Forms.Padding(3);
-            this.repportTab.Size = new System.Drawing.Size(441, 242);
+            this.repportTab.Size = new System.Drawing.Size(441, 360);
             this.repportTab.TabIndex = 1;
             this.repportTab.Text = "Reports";
             // 
@@ -421,9 +427,9 @@
             this.groupBox4.Controls.Add(this.NamesCombo);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.groupBox4.Location = new System.Drawing.Point(6, 6);
+            this.groupBox4.Location = new System.Drawing.Point(12, 247);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(205, 152);
+            this.groupBox4.Size = new System.Drawing.Size(213, 152);
             this.groupBox4.TabIndex = 15;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Repports Parameters";
@@ -505,7 +511,7 @@
             this.oPCToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(737, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(712, 24);
             this.menuStrip1.TabIndex = 17;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -568,19 +574,47 @@
             this.stopToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             // 
-            // Form1
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.label3.Location = new System.Drawing.Point(22, 18);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Report Name:";
+            // 
+            // selectedreport
+            // 
+            this.selectedreport.AutoSize = true;
+            this.selectedreport.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.selectedreport.Location = new System.Drawing.Point(101, 20);
+            this.selectedreport.Name = "selectedreport";
+            this.selectedreport.Size = new System.Drawing.Size(0, 13);
+            this.selectedreport.TabIndex = 3;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(7, 35);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(428, 316);
+            this.dataGridView1.TabIndex = 4;
+            // 
+            // RelayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(737, 336);
+            this.ClientSize = new System.Drawing.Size(712, 452);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "RelayForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
@@ -593,11 +627,13 @@
             this.tabControl1.ResumeLayout(false);
             this.vinTab.ResumeLayout(false);
             this.repportTab.ResumeLayout(false);
+            this.repportTab.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -650,5 +686,8 @@
         private System.Windows.Forms.ToolStripStatusLabel OPCINFO;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label selectedreport;
+        private System.Windows.Forms.Label label3;
     }
 }
