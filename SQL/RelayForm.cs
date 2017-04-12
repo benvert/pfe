@@ -559,6 +559,34 @@ namespace SQL
         private void NamesCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             MessageBox.Show(DbReport.Keys.ElementAtOrDefault(NamesCombo.SelectedIndex));
+
+
+            if (!Dbisopen)
+                Opendb();
+           dataGridView1.Rows.Clear();
+            if (TableExists(checkBox2.Text, database_connection))
+            {
+
+                string sql = "SELECT * FROM "+checkBox2.Text;
+
+                try
+                {
+                    cmd = new SQLiteCommand(sql, database_connection);
+                    SQLiteDataReader read = cmd.ExecuteReader();
+                    while (read.Read())
+                    {
+                        dataGridView1.Rows.Add(read.GetValue(read.GetOrdinal("name")), read.GetValue(read.GetOrdinal("valeur")));
+                    }
+
+                }
+                catch (Exception er)
+                {
+                    this.Invoke((MethodInvoker)(() => db_status.Text = er.Message));
+                }
+            }
+
+
+
         }
 
         //changement de valeur
